@@ -1,0 +1,10 @@
+/bin/
+/.env
+/.env.*
+/Caddyfile
+*.log
+/ts3-awg.json
+/ts3-awg-*.json
+/coverage.out
+/__pycache__/
+**/__pycache__/

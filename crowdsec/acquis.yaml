@@ -1,0 +1,5 @@
+# /etc/crowdsec/acquis.d/caddy-ts3-awg.yaml
+filenames:
+  - /var/log/caddy/ts3-awg.json
+labels:
+  type: caddy-ts3-awg

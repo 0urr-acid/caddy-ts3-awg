@@ -1,0 +1,17 @@
+type: leaky
+name: 0urr-acid/ts3-awg-connection-flood
+description: Repeated high rates of UDP session starts from a single source
+filter: "evt.Meta.service == 'ts3-awg' && evt.Meta.log_type == 'ts3_awg_suspicious'"
+groupby: evt.Meta.source_ip
+capacity: 2
+leakspeed: 30s
+blackhole: 2m
+labels:
+  remediation: true
+  service: ts3-awg
+  confidence: 1
+  spoofable: 1
+  classification:
+    - attack.T1498
+  behavior: "generic:scan"
+  label: "TS3/AWG UDP connection flood"

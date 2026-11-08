@@ -1,0 +1,33 @@
+{
+	ts3_awg {
+		server vpn {
+			listen udp/:9987
+			teamspeak 127.0.0.1:9988
+			awg 127.0.0.1:51820
+			initiation {
+				server_public_key {env.AWG_SERVER_PUBLIC_KEY}
+				header_protection_key {env.AWG_HEADER_PROTECTION_KEY}
+				s1 {$AWG_S1:24}
+				h1 {$AWG_H1:1}
+				random_trailers {$AWG_RANDOM_TRAILERS:true}
+			}
+			idle_timeout 2m
+			max_sessions 1024
+			audit {
+				window 10s
+				burst 60
+				max_sources 16384
+			}
+		}
+	}
+
+	log ts3_awg_security {
+		include ts3_awg
+		output file ./ts3-awg.json {
+			roll_size 20MiB
+			roll_keep 5
+		}
+		format json
+		level INFO
+	}
+}

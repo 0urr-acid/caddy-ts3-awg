@@ -1,0 +1,3 @@
+{"level":"info","ts":1794153600,"logger":"ts3_awg","msg":"switched UDP flow to AWG","event":"route_selected","remote_ip":"198.51.100.24","remote_port":21000,"reason":"third_packet_initiation_mac1"}
+{"level":"debug","ts":1794153601,"logger":"ts3_awg","msg":"backend read failed","event":"backend_error","remote_ip":"198.51.100.24","error":"connection refused"}
+{"level":"warn","ts":1794153602,"logger":"other_module","event":"suspicious_connection","reason":"session_start_rate","remote_ip":"198.51.100.24"}

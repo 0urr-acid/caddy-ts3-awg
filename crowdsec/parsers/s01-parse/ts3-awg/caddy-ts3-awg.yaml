@@ -1,0 +1,21 @@
+name: 0urr-acid/caddy-ts3-awg
+description: Parse suspicious UDP session-start events emitted by the Caddy ts3_awg app
+filter: |
+  evt.Line.Labels.type == 'caddy-ts3-awg' &&
+  UnmarshalJSON(evt.Line.Raw, evt.Unmarshaled, 'ts3_awg') in ['', nil] &&
+  evt.Unmarshaled.ts3_awg.logger == 'ts3_awg' &&
+  evt.Unmarshaled.ts3_awg.event == 'suspicious_connection' &&
+  evt.Unmarshaled.ts3_awg.reason == 'session_start_rate' &&
+  evt.Unmarshaled.ts3_awg.remote_ip != nil
+onsuccess: next_stage
+statics:
+  - meta: source_ip
+    expression: evt.Unmarshaled.ts3_awg.remote_ip
+  - meta: service
+    value: ts3-awg
+  - meta: log_type
+    value: ts3_awg_suspicious
+  - meta: reason
+    expression: evt.Unmarshaled.ts3_awg.reason
+  - target: evt.StrTime
+    expression: "Sprintf('%v', int(evt.Unmarshaled.ts3_awg.ts))"
